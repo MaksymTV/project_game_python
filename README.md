@@ -1,1 +1,3 @@
-# project_game_python
+Цей код є простою групою програм для мобільного додатка, яка використовує Kivy, бібліотеку для розробки користувацьких інтерфейсів. Вона містить три екрани: головне меню, екран гри та екран магазину. Гравець має розбивати стікери, щоб отримувати очки. Є можливість зберігання та завантаження прогресу гри.
+###
+This code is a simple set of programs for a mobile application that uses Kivy, a library for developing user interfaces. It consists of three screens: the main menu, the game screen, and the shop screen. The player has to break stickers to earn points. There's the ability to save and load game progress.
