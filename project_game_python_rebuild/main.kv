@@ -1,0 +1,176 @@
+#:set main_color 0,0,0,1
+#:set accent_color 1, 1, 0, 1
+
+# Цей колір використовується як 'color_a'
+# RGBA: 40/255, 29/255, 64/255, 1
+# HEX: #281D40
+#:set color_a 40/255, 29/255, 64/255, 1
+
+# Цей колір використовується як 'color_b'
+# RGBA: 83/255, 69/255, 115/255, 1
+# HEX: #534573
+#:set color_b 83/255, 69/255, 115/255, 1
+
+# Цей колір використовується як 'color_c'
+# RGBA: 242/255, 123/255, 53/255, 1
+# HEX: #F27B35
+#:set color_c 242/255, 123/255, 53/255, 1
+
+# Цей колір використовується як 'color_d'
+# RGBA: 242/255, 173/255, 133/255, 1
+# HEX: #F2AD85
+#:set color_d 242/255, 173/255, 133/255, 1
+
+# Цей колір використовується як 'color_e'
+# RGBA: 140/255, 93/255, 88/255, 1
+# HEX: #8C5D58
+#:set color_e 140/255, 93/255, 88/255, 1
+
+<Screen, ScreenManager>
+    canvas.before:
+        Color:
+            rgba: color_a
+        Rectangle:
+            size: self.size
+            pos: self.pos
+
+<ButtonGame@Button>
+    canvas.before:
+        Color:
+            rgba:color_d if self.state == 'normal' else color_c
+        RoundedRectangle:
+            size: self.size
+            pos: self.pos
+            radius: [0,5,0,5]
+        Color:
+            rgba: accent_color if self.state == 'normal' else color_d
+        BoxShadow:
+            size: self.size
+            pos: self.pos 
+            offset: 0, -2
+            inset: True
+            border_radius: 0,5,0,5
+            blur_radius: 5 if self.state == 'normal' else 10
+    size_hint_y: 0.5
+    font_size: '20sp'
+    color: color_a
+    background_color: 0,0,0,0
+    background_normal: ''
+    background_down: ''
+    font_name: 'fonts/PoetsenOne-Regular.ttf'
+
+<ButtonMenu@Button>
+    canvas.before:
+        Color:
+            rgba:color_d if self.state == 'normal' else color_c
+        RoundedRectangle:
+            size: self.size
+            pos: self.pos
+            radius: [0,50,0,50]
+        Color:
+            rgba: accent_color if self.state == 'normal' else color_d
+        BoxShadow:
+            size: self.size
+            pos: self.pos
+            offset: 0,-5
+            inset: True
+            border_radius: 0,50,0,50
+            blur_radius: 10 if self.state == 'normal' else 20
+    size_hint_y: 0.25
+    font_size: '30sp'
+    color: color_a
+    background_color: 0,0,0,0
+    background_normal: ''
+    background_down: ''
+    #
+    #
+
+    font_name: 'fonts/PoetsenOne-Regular.ttf'
+
+
+
+
+
+<MenuScreen>
+
+    BoxLayout:
+        orientation: 'vertical'
+        padding: '20dp'
+        spacing: '20dp'
+
+        Label:
+            id: title_game
+            text: "Sticker Battle!"
+            font_name: 'fonts/PoetsenOne-Regular.ttf'
+            font_size: '30sp'
+            color: 'red'
+            size_hint_y: 0.2
+
+
+        Image:
+            source: 'img/vecteezy_golden-logo-template_23654784.png'
+            size_hint_y: 0.3
+            allow_stretch: True
+
+        Widget:
+            size_hint_y: 0.05
+        
+        ButtonMenu: 
+            text: 'Settings'
+
+        ButtonMenu:
+            text: 'Play'
+            on_press: root.manager.current = 'game'
+
+        ButtonMenu:
+            text: 'Lider Board'
+
+
+<GameScreen>
+    id: game 
+    BoxLayout:
+        orientation: 'vertical'
+        BoxLayout:
+            size_hint_y: 0.1
+            Label:
+                text: "score: "+ str(int(root.points))
+                font_name: 'fonts/PoetsenOne-Regular.ttf'
+                font_size: '40sp'
+                color: color_c
+        FloatLayout:
+
+            size_hint_y: 0.8
+            Sticker:
+                id: sticker
+
+        BoxLayout:
+            orientation: "vertical"
+            size_hint_y: 0.1
+            padding: '10dp'
+            spacing: '10dp'
+            BoxLayout:
+
+                ButtonGame:
+                    text: '\uE08A'
+                    on_press:
+                        root.manager.current = 'menu'
+                        app.save_prog()
+                Widget:
+                    size_hint_y: 0.05
+                    spacing: '20dp'
+                ButtonGame:
+                    text: '\uE0DC'
+                Widget:
+                    size_hint_y: 0.05
+                    spacing: '20dp'
+                ButtonGame:
+                    text: '\uE0E0'
+
+            
+
+<Sticker>
+    allow_stretch: True
+    size_hint: None,None
+    size: '200dp', '200dp'
+    center: self.parent.center
+    opacity: 0.0
